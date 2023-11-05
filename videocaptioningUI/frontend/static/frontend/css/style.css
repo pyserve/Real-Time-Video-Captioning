@@ -1,0 +1,10 @@
+
+html, body{
+    font-family: "arial";
+    background-color: #FFC8DD;
+}
+.brand-image{
+    height: 40px;
+    width: 40px;
+}
+/* FFC8DD, FFAFCC, BDE0FE, A2D2FF */
