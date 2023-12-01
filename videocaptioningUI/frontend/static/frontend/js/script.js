@@ -19,8 +19,11 @@ function handleFileSelect(event) {
     var input = event.target;
     var progressBar = $('.progress');
     var submitButton = $('#submitBtn');
-    var selectInfo = $("#selectInfo")
-    var selectFile = $("#selectFile")
+    var selectInfo = $("#selectInfo");
+    var selectFile = $("#selectFile");
+    var caption_text = $("#caption_text");
+
+    caption_text.html("Once video or image is uploaded, caption will automatically generate here!");
     selectFile.addClass("disabled");
     selectInfo.html("File is uploading...")
 
@@ -58,6 +61,7 @@ function handleFileSelect(event) {
             success: function (data) {
                 // Handle success response here (if needed)
                 console.log('File uploaded successfully:');
+                caption_text.html(data.caption)
                 selectFile.removeClass("disabled")
                 selectInfo.addClass("text-success")
                 selectInfo.html("File is loaded successfully!!")
@@ -65,6 +69,9 @@ function handleFileSelect(event) {
             error: function (xhr, status, error) {
                 // Handle error response here (if needed)
                 console.error('Error uploading file:', xhr.responseText);
+                selectFile.removeClass("disabled")
+                selectInfo.addClass("text-danger")
+                selectInfo.html("File upload failed!!")
             },
             complete: function () {
                 // Hide the progress bar after the upload is complete

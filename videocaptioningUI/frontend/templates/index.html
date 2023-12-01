@@ -3,6 +3,7 @@
 
 {%block links%}
 <script type="text/javascript" src="{% static 'frontend/js/script.js'%}"></script>
+<script type="text/javascript" src="{% static 'frontend/js/videostream.js'%}"></script>
 {%endblock%}
 
 {%block content%}
@@ -19,27 +20,33 @@
             </a>
         </div>
     </div>
+
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form action="" method="post" class="text-center"
                       id="postform" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="">
-                        <label for="file">
-                            <div>
-                                <img src="{% static 'frontend/img/upload_icon.png' %}"
-                                     alt="" class="w-50 border rounded-circle">
-                            </div>
-                            <div id="selectFile" class="mt-3 mb-2 btn btn-success">Select File</div>
-                        </label>
+                    <div id="file-upload">
+                        <div class="">
+                            <label for="file">
+                                <div>
+                                    <img src="{% static 'frontend/img/upload_icon.png' %}"
+                                         alt="" class="w-50 border rounded-circle">
+                                </div>
+                                <div id="selectFile" class="mt-3 mb-2 btn btn-success">Select File</div>
+                            </label>
+                        </div>
+                        <div id="selectInfo" class="my-2 fw-italic small fw-bold">
+                            Please select image or video files to upload
+                        </div>
                     </div>
-                    <div id="selectInfo" class="my-2 fw-italic small fw-bold">
-                        Please select image or video files to upload
+                    <div class="py-2">
+                        <video src="" id="videoElement" class="d-none h-100 w-100" autoplay></video>
                     </div>
                     <input type="file" id="file" name="file" class="form-control"
                            hidden="true" onchange="handleFileSelect(event)">
-                    <input type="submit" value="Upload" class="btn btn-danger mt-2 d-none" id="submitBtn">
+                    <input type="button" value="Upload" class="btn btn-danger mt-2 d-none" id="submitBtn">
                 </form>
 
                 <div class="progress my-3" style="display:none;">
@@ -50,6 +57,11 @@
 
                 <div class="row align-items-center justify-content-end">
                       <div class="col-auto">
+                        <button class="btn btn-dark" id="startCapture">
+                            <i class="fa-solid fa-video"></i>
+                        </button>
+                      </div>
+                      <div class="col-auto">
                         <i class="fas fa-volume-up fa-2x text-dark"></i>
                       </div>
                       <div class="col-auto">
@@ -59,8 +71,12 @@
                       </div>
                 </div>
                 <div class="my-3 text-center bg-light py-3 border rounded">
-                    <small class="">
-                        Once video or image is uploaded, caption will automatically generate here!
+                    <small id="caption_text">
+                        {% if caption %}
+                            {{caption}}
+                        {% else %}
+                            Once video or image is uploaded, caption will automatically generate here!
+                        {% endif %}
                     </small>
                 </div>
                 <div class="my-2 d-flex align-items-center justify-content-between">
