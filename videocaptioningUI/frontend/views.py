@@ -31,11 +31,13 @@ class VideoCaptionView(View):
 
     def post(self, request):
         file_uploaded = request.FILES.get('file')
-        imageData = request.POST.get('stream')
-        imageData = base64.b64decode(imageData.split(',')[1])
+        img_frame = None
+        if request.POST.get('stream'):
+            imageData = request.POST['stream']
+            imageData = base64.b64decode(imageData.split(',')[1])
 
-        nparr = np.frombuffer(imageData, np.uint8)
-        img_frame = cv.imdecode(nparr, cv.IMREAD_COLOR)
+            nparr = np.frombuffer(imageData, np.uint8)
+            img_frame = cv.imdecode(nparr, cv.IMREAD_COLOR)
 
         gen_captions = []
         processed_frames = []
