@@ -27,7 +27,28 @@ function handleFileSelect(event) {
     selectFile.addClass("disabled");
     selectInfo.html("File is uploading...")
 
+    const fileType = input.files[0].type;
+
+    const imageUploaded = $('#imageUploaded');
+    const videoUploaded = $('#videoUploaded');
+    const fileUpload = $("#file-upload");
+
+    if (fileType.startsWith('image/')) {
+        imageUploaded.prop("src", URL.createObjectURL(input.files[0]));
+        imageUploaded.removeClass('d-none');
+        videoUploaded.addClass('d-none');
+    } else if (fileType.startsWith('video/')) {
+        videoUploaded.prop('src', URL.createObjectURL(input.files[0]));
+        videoUploaded.removeClass('d-none');
+        imageUploaded.addClass('d-none');
+    } else {
+        // Handle unsupported file type
+        alert('Unsupported file type. Please upload an image or video.');
+        return;
+    }
+
     if (input.files && input.files[0]) {
+        fileUpload.addClass("d-none");
         progressBar.show();
 
         var formData = new FormData();
@@ -65,6 +86,7 @@ function handleFileSelect(event) {
                 selectFile.removeClass("disabled")
                 selectInfo.addClass("text-success")
                 selectInfo.html("File is loaded successfully!!")
+                fileUpload.removeClass("d-none");
             },
             error: function (xhr, status, error) {
                 // Handle error response here (if needed)
