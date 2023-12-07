@@ -1,0 +1,114 @@
+{%extends "base.html"%}
+{%load static%}
+
+{%block links%}
+<script type="text/javascript" src="{% static 'frontend/js/script.js'%}"></script>
+<script type="text/javascript" src="{% static 'frontend/js/videostream.js'%}"></script>
+{%endblock%}
+
+{%block content%}
+<div class="main-bg">
+    <div class="navbar navbar-expand-md navbar-light bg-light py-2 shadow-md">
+        <div class="container">
+            <a href="/" class="navbar-brand mx-auto">
+                <div class="text-center">
+                    <img src="{% static 'frontend/img/chrome.png' %}" alt="logo" class="brand-image">
+                    <div class="ps-1">
+                        <div class=""><span class="display-6 text-success">V</span>CapGen</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="" method="post" class="text-center"
+                      id="postform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div id="file-upload">
+                        <div class="">
+                            <label for="file">
+                                <div>
+                                    <img src="{% static 'frontend/img/upload_icon.png' %}"
+                                         alt="" class="w-50 border rounded-circle">
+                                </div>
+                                <div id="selectFile" class="mt-3 mb-2 btn btn-success">Select File</div>
+                            </label>
+                        </div>
+                        <div id="selectInfo" class="my-2 fw-italic small fw-bold">
+                            Please select image or video files to upload
+                        </div>
+                    </div>
+
+                    <div class="py-2">
+                        <video src="" id="videoUploaded" class="d-none h-100 w-100" autoplay></video>
+                        <img id="imageUploaded" class="d-none h-100 w-100" alt="Uploaded Image">
+                    </div>
+
+                    <div class="py-2">
+                        <video src="" id="videoElement" class="d-none h-100 w-100" autoplay></video>
+                    </div>
+                    <input type="file" id="file" name="file" class="form-control"
+                           hidden="true" onchange="handleFileSelect(event)">
+                    <input type="button" value="Upload" class="btn btn-danger mt-2 d-none" id="submitBtn">
+                </form>
+
+                <div class="progress my-3" style="display:none;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                         style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+
+                <div class="row align-items-center justify-content-end">
+                      <div class="col-auto">
+                        <button class="btn btn-dark" id="startCapture">
+                            <i class="fa-solid fa-video"></i>
+                        </button>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-volume-up fa-2x text-dark"></i>
+                      </div>
+                      <div class="col-auto">
+                        <button class="btn btn-dark" data-clipboard-target=".col p">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                      </div>
+                </div>
+                <div class="my-3 text-center bg-light py-3 border rounded">
+                    <small id="caption_text">
+                        {% if caption %}
+                            {{caption}}
+                        {% else %}
+                            Once video or image is uploaded, caption will automatically generate here!
+                        {% endif %}
+                    </small>
+                </div>
+                <div class="my-2 d-flex align-items-center justify-content-between">
+                    <div class="btn btn-dark mx-2">
+                        <i class="fa-solid fa-edit" style="color: #fff;"></i>
+                        Edit Caption
+                    </div>
+                    <div class="btn btn-dark mx-2">
+                        <i class="fa-solid fa-file-export"></i>
+                        Export
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-dark dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-language" style="color: #fff;"></i>
+                            Language
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Spanish</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

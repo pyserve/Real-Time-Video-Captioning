@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block title%} Capstone Project - Video Captioning {%endblock%}</title>
+    <link rel="shortcut icon" href="{% static 'frontend/img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'frontend/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'frontend/css/style.css'%}">
+
+    <script type="text/javascript" src="{% static 'frontend/js/jquery.js'%}"></script>
+    <script type="text/javascript" src="{% static 'frontend/js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'frontend/js/all.min.js'%}"></script>
+    {%block links%}{%endblock%}
+</head>
+<body>
+    {%block content%}{%endblock%}
+</body>
+</html>
