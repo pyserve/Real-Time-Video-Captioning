@@ -6,9 +6,6 @@ Visio Text is a real-time video captioning project that leverages the capabiliti
 **Project Structure:**
 The project repository includes the following directories and files:
 
-- **.idea**: Contains project-specific configurations for IDEs.
-- **.ipynb_checkpoints**: Checkpoint files for Jupyter Notebooks.
-- **final**: Directory containing project final files and documentation.
 - **videocaptioningUI**: User interface components for video captioning.
 - **AML_2404_Video_Captioning.ipynb**: Jupyter Notebook file related to the real-time video captioning process.
 - **captions.txt**: Text file storing captions for videos.
